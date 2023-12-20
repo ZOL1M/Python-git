@@ -1,7 +1,14 @@
-from fastapi import FastAPI
+import sqlite3
 
-app = FastAPI()
+connection = sqlite3.connect('my_database.db')
+cursor = connection.cursor()
 
-@app.get("/")
-def root():
-    return {"message": "Hello, World!"}
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS Users (
+id INTEGER,
+name TEXT
+)
+''')
+
+connection.commit()
+connection.close()
